@@ -32,6 +32,12 @@
 #ifndef __HIREDIS_H
 #define __HIREDIS_H
 
+#ifdef WIN32
+	#pragma pack(push)
+	#pragma pack(1)
+#endif
+
+
 #if defined(_MSC_VER)
 #define HIREDIS_WIN 1
 #endif
@@ -41,6 +47,9 @@
 
 #ifndef HIREDIS_WIN
 #include <sys/time.h> /* for struct timeval */
+
+
+
 #else
 #include <winsock2.h>
 #include <ws2tcpip.h>
@@ -207,6 +216,13 @@ int redisAppendCommandArgv(redisContext *c, int argc, const char **argv, const s
 void *redisvCommand(redisContext *c, const char *format, va_list ap);
 void *redisCommand(redisContext *c, const char *format, ...);
 void *redisCommandArgv(redisContext *c, int argc, const char **argv, const size_t *argvlen);
+
+
+#ifdef WIN32
+	#pragma pack(pop)
+#endif
+
+
 
 #ifdef __cplusplus
 }
